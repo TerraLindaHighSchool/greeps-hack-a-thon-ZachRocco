@@ -36,16 +36,35 @@ public class Greep extends Creature
         if (carryingTomato()) {
             if (atShip()) {
                 dropTomato();
+                turn(getRotation() * 2);
             }
             else {
-                turnHome();
+                if( atWater() || isAtEdge())
+                {
+                    spit("red");
+                    turn(45);
+                }
+                else if(!seePaint("red"))
+                {
+                   turnHome();
+                }
                 move();
             }
         }
-        else {
+        else if (!seePaint("orange")) {
             move();
             checkFood();
+            if( atWater() || isAtEdge())
+            {
+                spit("red");
+                turn(getRotation() * 2);
+            }
         }
+        if (seePaint("purple"))
+        {
+            
+        }
+        
     }
     
     /**
@@ -56,6 +75,7 @@ public class Greep extends Creature
         // check whether there's a tomato pile here
         TomatoPile tomatoes = (TomatoPile) getOneIntersectingObject(TomatoPile.class);
         if (tomatoes != null) {
+            spit("orange");
             loadTomato();
             // Note: this attempts to load a tomato onto *another* Greep. It won't
             // do anything if we are alone here.
@@ -67,7 +87,7 @@ public class Greep extends Creature
      */
     public static String getAuthorName()
     {
-        return "Anonymous";  // write your name here!
+        return "Zach";  // write your name here!
     }
 
     /**

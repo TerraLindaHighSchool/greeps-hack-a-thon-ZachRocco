@@ -11,6 +11,7 @@ public class Greep extends Creature
     // Remember: you cannot extend the Greep's memory. So:
     // no additional fields (other than final fields) allowed in this class!
     
+    
     /**
      * Default constructor for testing purposes.
      */
@@ -36,7 +37,7 @@ public class Greep extends Creature
         if (carryingTomato()) {
             if (atShip()) {
                 dropTomato();
-                turn(getRotation() * 2);
+                turn(180);
             }
             else {
                 if( atWater() || isAtEdge())
@@ -47,24 +48,26 @@ public class Greep extends Creature
                 else if(!seePaint("red"))
                 {
                    turnHome();
+                   spit("purple");
                 }
                 move();
             }
         }
+        else if(seePaint("purple") && !seePaint("orange") && !seePaint("red") )
+        {
+            turnHome();
+            turn(180);
+            move();
+        }
         else if (!seePaint("orange")) {
             move();
-            checkFood();
             if( atWater() || isAtEdge())
             {
                 spit("red");
-                turn(getRotation() * 2);
+                turn(45);
             }
         }
-        if (seePaint("purple"))
-        {
-            
-        }
-        
+        checkFood();
     }
     
     /**
